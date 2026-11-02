@@ -1,0 +1,8 @@
+{
+  "aix_version": "0.1.0",
+  "message_id": "msg-invalid-0001",
+  "created_at": "2026-11-01T20:00:00Z",
+  "sender": {"principal_id": "agent://coordinator", "trust_domain": "example.org"},
+  "message_type": "task.request",
+  "task": {"task_id": "task-invalid-0001", "intent": "review", "objective": "Invalid fixture missing security and provenance."}
+}
