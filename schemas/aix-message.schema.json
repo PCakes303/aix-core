@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/PCakes303/aix-core/blob/main/schemas/aix-message.schema.json",
+  "title": "AIX Experimental Message Envelope",
+  "description": "Experimental semantic envelope. AIX extends existing agent standards and transports; this schema does not implement transport or security.",
+  "type": "object",
+  "required": ["aix_version", "message_id", "created_at", "sender", "message_type", "task", "security", "provenance"],
+  "properties": {
+    "aix_version": {"type": "string", "pattern": "^0\\.[0-9]+\\.[0-9]+$"},
+    "message_id": {"type": "string", "minLength": 8, "maxLength": 128},
+    "created_at": {"type": "string", "format": "date-time"},
+    "sender": {"$ref": "#/$defs/principal"},
+    "recipient": {"$ref": "#/$defs/principal"},
+    "message_type": {"enum": ["task.request", "task.accepted", "task.rejected", "task.acknowledged", "task.status", "task.result", "task.error", "capability.query", "capability.response", "context.reference"]},
+    "task": {
+      "type": "object",
+      "required": ["task_id", "intent", "objective"],
+      "properties": {
+        "task_id": {"type": "string", "minLength": 1},
+        "intent": {"type": "string", "minLength": 1, "maxLength": 256},
+        "objective": {"type": "string", "minLength": 1, "maxLength": 4000},
+        "state": {"enum": ["proposed", "accepted", "rejected", "queued", "running", "blocked", "succeeded", "failed", "cancelled", "expired"]},
+        "idempotency_key": {"type": "string", "minLength": 8, "maxLength": 256},
+        "deadline": {"type": "string", "format": "date-time"},
+        "input_refs": {"type": "array", "items": {"$ref": "#/$defs/reference"}},
+        "constraints": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "capability_requirements": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "context_refs": {"type": "array", "items": {"$ref": "#/$defs/reference"}},
+    "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/evidence"}},
+    "security": {
+      "type": "object",
+      "required": ["authentication_context", "requested_scopes"],
+      "properties": {
+        "authentication_context": {"type": "string", "minLength": 1},
+        "requested_scopes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "authorization_decision_ref": {"type": "string"},
+        "policy_ref": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["trace_id"],
+      "properties": {
+        "trace_id": {"type": "string", "minLength": 1},
+        "parent_message_id": {"type": "string"},
+        "causation_id": {"type": "string"},
+        "source_protocol": {"type": "string"},
+        "source_version": {"type": "string"},
+        "mapping_profile": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "extensions": {"type": "object", "description": "Namespaced extension objects."}
+  },
+  "$defs": {
+    "principal": {
+      "type": "object",
+      "required": ["principal_id", "trust_domain"],
+      "properties": {"principal_id": {"type": "string", "minLength": 1}, "trust_domain": {"type": "string", "minLength": 1}},
+      "additionalProperties": false
+    },
+    "reference": {
+      "type": "object",
+      "required": ["uri", "media_type"],
+      "properties": {"uri": {"type": "string", "format": "uri"}, "media_type": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["evidence_type", "uri", "observed_at"],
+      "properties": {"evidence_type": {"type": "string"}, "uri": {"type": "string", "format": "uri"}, "observed_at": {"type": "string", "format": "date-time"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "source_id": {"type": "string"}},
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
