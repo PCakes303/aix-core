@@ -20,6 +20,10 @@ AIX is an **extension layer**, not a replacement for MCP, A2A, HTTP, OpenAPI, JS
 - Synthetic positive and negative conformance fixtures.
 - Mapping principles and explicit non-goals.
 
+## License status
+
+The repository's code, documentation, schemas, examples, and other materials do not yet have an approved license decision. No root `LICENSE` file or GitHub license declaration is present. Reuse and redistribution rights must not be assumed; licensing remains pending repository-specific review.
+
 ## Validation
 
 Requires Python 3.10+ and `jsonschema==4.25.1`.
