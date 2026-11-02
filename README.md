@@ -3,7 +3,7 @@
 **Repository:** `PCakes303/aix-core`  
 **Portfolio position:** 11 / 31 public repositories  
 **Maturity:** experimental specification scaffold  
-**License:** pending review
+**License:** [Scoped mixed-license policy](LICENSE.md).
 
 ## Purpose
 
@@ -22,7 +22,7 @@ AIX is an **extension layer**, not a replacement for MCP, A2A, HTTP, OpenAPI, JS
 
 ## License status
 
-The repository's code, documentation, schemas, examples, and other materials do not yet have an approved license decision. No root `LICENSE` file or GitHub license declaration is present. Reuse and redistribution rights must not be assumed; licensing remains pending repository-specific review.
+This repository applies a scoped mixed-license policy: original source code and machine-readable contracts are licensed under Apache-2.0; original human-readable documentation is licensed under CC BY 4.0. Third-party material retains upstream terms. Datasets, evidence, fixtures, sample payloads, media, and material with uncertain provenance are not blanket-licensed and require separate review. See [LICENSE.md](LICENSE.md).
 
 ## Validation
 
