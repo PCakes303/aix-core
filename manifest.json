@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifest_version": "1.0.0",
+  "id": "aix-core",
+  "name": "aix-core",
+  "visibility": "public",
+  "maturity": "experimental",
+  "summary": "Experimental semantic interoperability specification and message envelope for agent intent, task lifecycle, capabilities, context, status, errors, and provenance.",
+  "license": {"expression": null, "status": "pending-review"},
+  "interfaces": [
+    {"name": "aix-message-envelope", "version": "0.1.0", "kind": "schema", "stability": "experimental"},
+    {"name": "aix-task-lifecycle", "version": "0.1.0", "kind": "specification", "stability": "experimental"},
+    {"name": "aix-mapping-profile", "version": "0.1.0", "kind": "specification", "stability": "draft"}
+  ],
+  "dependencies": [
+    {"id": "foundation", "constraint": "contract dependency; version TBD", "kind": "contract"},
+    {"id": "schema-registry", "constraint": "schema publication dependency; version TBD", "kind": "contract"},
+    {"id": "identity-trust", "constraint": "security-context reference contract; version TBD", "kind": "contract"},
+    {"id": "policy-engine", "constraint": "authorization decision reference contract; version TBD", "kind": "contract"},
+    {"id": "audit-provenance", "constraint": "trace and evidence reference contract; version TBD", "kind": "contract"}
+  ],
+  "security": {
+    "threat_model": "docs/THREAT_MODEL.md",
+    "secrets_in_repository": false,
+    "data_classification": "public",
+    "security_contact": null
+  },
+  "default_branch": "main",
+  "compatibility": [],
+  "evidence": [{"claim": "Validate experimental AIX envelopes and reject malformed fixtures.", "kind": "test", "location": "tests/test_message.py"}],
+  "$id": "https://github.com/PCakes303/aix-core/blob/main/manifest.json"
+}
