@@ -1,0 +1,13 @@
+{
+  "capabilities_version": "1.0.0",
+  "component": "aix-core",
+  "capabilities": [
+    {"id": "message-envelope-schema", "status": "experimental", "description": "Versioned semantic envelope for agent messages."},
+    {"id": "task-lifecycle-vocabulary", "status": "experimental", "description": "Shared task states and message categories."},
+    {"id": "context-evidence-references", "status": "experimental", "description": "Portable references to context and evidence resources."},
+    {"id": "schema-validation", "status": "implemented-prototype", "description": "Validate examples against JSON Schema Draft 2020-12."},
+    {"id": "standards-mapping-profiles", "status": "draft", "description": "Documented mapping guidance for MCP, A2A, and transport-specific representations."},
+    {"id": "production-runtime", "status": "not-implemented", "description": "No production message runtime or transport is included."},
+    {"id": "authentication-authorization", "status": "not-implemented", "description": "Security context is referential only; receivers enforce identity and policy independently."}
+  ]
+}
