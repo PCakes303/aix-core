@@ -1,0 +1,17 @@
+# AIX Core
+
+Experimental semantic interoperability specification for agent task and context exchange.
+
+## Entry points
+- README.md: scope and limitations
+- docs/SPECIFICATION.md: normative-intent core semantics
+- docs/MAPPING-GUIDE.md: standards-extension and mapping principles
+- docs/THREAT_MODEL.md: security boundary
+- manifest.json: component manifest
+- capabilities.json: declared capabilities
+- compatibility.json: versioning policy
+- schemas/aix-message.schema.json: experimental envelope
+- tools/validate_message.py: schema validator
+
+## Important
+AIX extends existing standards; it does not replace them. Schema validation does not authenticate or authorize a sender. No private model reasoning is part of the contract.
