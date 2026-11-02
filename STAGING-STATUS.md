@@ -1,14 +1,11 @@
-# Staging status
+# Repository 11 deployment status
 
-Repository 11 starter bundle prepared in the master control plane.
+**Repository:** https://github.com/PCakes303/aix-core  
+**Deployment:** 21 files published to the `main` branch.  
+**CI:** Passed: https://github.com/PCakes303/aix-core/actions/runs/41406412416
 
-- AIX extension-layer positioning: documented.
-- Experimental message envelope: included.
-- Task lifecycle and mapping guidance: included.
-- Positive and negative fixtures: included.
-- Draft 2020-12 validator and tests: included.
-- CI workflow: included.
-- Production runtime, transport, SDK, authentication, authorization, signing, and interoperability certification: not implemented.
-- License: pending review.
+The repository defines the experimental AIX semantic message envelope, task lifecycle, mapping guidance, positive/negative fixtures, schema validation and tests.
 
-Create and verify the standalone public remote before deployment. This staging directory is not itself the standalone repository.
+## Maturity and limitations
+
+AIX is an extension layer over established protocols and transports, not a replacement for MCP, A2A, HTTP, or other transports. This repository is a scaffold, not a production runtime or interoperability certification. Production SDK/runtime, authentication, authorization, signing, and cross-implementation conformance remain future work. License selection remains pending review.
