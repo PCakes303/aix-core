@@ -4,75 +4,293 @@
   "title": "AIX Experimental Message Envelope",
   "description": "Experimental semantic envelope. AIX extends existing agent standards and transports; this schema does not implement transport or security.",
   "type": "object",
-  "required": ["aix_version", "message_id", "created_at", "sender", "message_type", "task", "security", "provenance"],
+  "required": [
+    "aix_version",
+    "message_id",
+    "created_at",
+    "sender",
+    "message_type",
+    "task",
+    "security",
+    "provenance"
+  ],
   "properties": {
-    "aix_version": {"type": "string", "pattern": "^0\\.[0-9]+\\.[0-9]+$"},
-    "message_id": {"type": "string", "minLength": 8, "maxLength": 128},
-    "created_at": {"type": "string", "format": "date-time"},
-    "sender": {"$ref": "#/$defs/principal"},
-    "recipient": {"$ref": "#/$defs/principal"},
-    "message_type": {"enum": ["task.request", "task.accepted", "task.rejected", "task.acknowledged", "task.status", "task.result", "task.error", "capability.query", "capability.response", "context.reference"]},
+    "aix_version": {
+      "type": "string",
+      "pattern": "^0\\.[0-9]+\\.[0-9]+$"
+    },
+    "message_id": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "maxLength": 64,
+      "pattern": "(?:Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
+    "sender": {
+      "$ref": "#/$defs/principal"
+    },
+    "recipient": {
+      "$ref": "#/$defs/principal"
+    },
+    "message_type": {
+      "enum": [
+        "task.request",
+        "task.accepted",
+        "task.rejected",
+        "task.acknowledged",
+        "task.status",
+        "task.result",
+        "task.error",
+        "capability.query",
+        "capability.response",
+        "context.reference"
+      ]
+    },
     "task": {
       "type": "object",
-      "required": ["task_id", "intent", "objective"],
+      "required": [
+        "task_id",
+        "intent",
+        "objective"
+      ],
       "properties": {
-        "task_id": {"type": "string", "minLength": 1},
-        "intent": {"type": "string", "minLength": 1, "maxLength": 256},
-        "objective": {"type": "string", "minLength": 1, "maxLength": 4000},
-        "state": {"enum": ["proposed", "accepted", "rejected", "queued", "running", "blocked", "succeeded", "failed", "cancelled", "expired"]},
-        "idempotency_key": {"type": "string", "minLength": 8, "maxLength": 256},
-        "deadline": {"type": "string", "format": "date-time"},
-        "input_refs": {"type": "array", "items": {"$ref": "#/$defs/reference"}},
-        "constraints": {"type": "object"}
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "intent": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "state": {
+          "enum": [
+            "proposed",
+            "accepted",
+            "rejected",
+            "queued",
+            "running",
+            "blocked",
+            "succeeded",
+            "failed",
+            "cancelled",
+            "expired"
+          ]
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 256
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date-time",
+          "maxLength": 64,
+          "pattern": "(?:Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        "input_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reference"
+          },
+          "maxItems": 128
+        },
+        "constraints": {
+          "type": "object",
+          "maxProperties": 64
+        }
       },
       "additionalProperties": false
     },
-    "capability_requirements": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-    "context_refs": {"type": "array", "items": {"$ref": "#/$defs/reference"}},
-    "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/evidence"}},
+    "capability_requirements": {
+      "type": "array",
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    },
+    "context_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference"
+      },
+      "maxItems": 128
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      },
+      "maxItems": 128
+    },
     "security": {
       "type": "object",
-      "required": ["authentication_context", "requested_scopes"],
+      "required": [
+        "authentication_context",
+        "requested_scopes"
+      ],
       "properties": {
-        "authentication_context": {"type": "string", "minLength": 1},
-        "requested_scopes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-        "authorization_decision_ref": {"type": "string"},
-        "policy_ref": {"type": "string"}
+        "authentication_context": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "requested_scopes": {
+          "type": "array",
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "authorization_decision_ref": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "policy_ref": {
+          "type": "string",
+          "maxLength": 512
+        }
       },
       "additionalProperties": false
     },
     "provenance": {
       "type": "object",
-      "required": ["trace_id"],
+      "required": [
+        "trace_id"
+      ],
       "properties": {
-        "trace_id": {"type": "string", "minLength": 1},
-        "parent_message_id": {"type": "string"},
-        "causation_id": {"type": "string"},
-        "source_protocol": {"type": "string"},
-        "source_version": {"type": "string"},
-        "mapping_profile": {"type": "string"}
+        "trace_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "parent_message_id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "causation_id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "source_protocol": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "source_version": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "mapping_profile": {
+          "type": "string",
+          "maxLength": 128
+        }
       },
       "additionalProperties": false
     },
-    "extensions": {"type": "object", "description": "Namespaced extension objects."}
+    "extensions": {
+      "type": "object",
+      "maxProperties": 64,
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9.-]{0,127}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "maxProperties": 64
+      }
+    }
   },
   "$defs": {
     "principal": {
       "type": "object",
-      "required": ["principal_id", "trust_domain"],
-      "properties": {"principal_id": {"type": "string", "minLength": 1}, "trust_domain": {"type": "string", "minLength": 1}},
+      "required": [
+        "principal_id",
+        "trust_domain"
+      ],
+      "properties": {
+        "principal_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "trust_domain": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
       "additionalProperties": false
     },
     "reference": {
       "type": "object",
-      "required": ["uri", "media_type"],
-      "properties": {"uri": {"type": "string", "format": "uri"}, "media_type": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+      "required": [
+        "uri",
+        "media_type"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "media_type": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
       "additionalProperties": false
     },
     "evidence": {
       "type": "object",
-      "required": ["evidence_type", "uri", "observed_at"],
-      "properties": {"evidence_type": {"type": "string"}, "uri": {"type": "string", "format": "uri"}, "observed_at": {"type": "string", "format": "date-time"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "source_id": {"type": "string"}},
+      "required": [
+        "evidence_type",
+        "uri",
+        "observed_at"
+      ],
+      "properties": {
+        "evidence_type": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time",
+          "maxLength": 64,
+          "pattern": "(?:Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "source_id": {
+          "type": "string",
+          "maxLength": 128
+        }
+      },
       "additionalProperties": false
     }
   },
