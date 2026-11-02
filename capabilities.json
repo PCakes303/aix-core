@@ -1,13 +1,65 @@
 {
-  "capabilities_version": "1.0.0",
-  "component": "aix-core",
+  "capabilities_version": "1.1.0",
+  "repository": "aix-core",
+  "repository_id": "aix-core",
+  "maturity": "scaffolding",
   "capabilities": [
-    {"id": "message-envelope-schema", "status": "experimental", "description": "Versioned semantic envelope for agent messages."},
-    {"id": "task-lifecycle-vocabulary", "status": "experimental", "description": "Shared task states and message categories."},
-    {"id": "context-evidence-references", "status": "experimental", "description": "Portable references to context and evidence resources."},
-    {"id": "schema-validation", "status": "implemented-prototype", "description": "Validate examples against JSON Schema Draft 2020-12."},
-    {"id": "standards-mapping-profiles", "status": "draft", "description": "Documented mapping guidance for MCP, A2A, and transport-specific representations."},
-    {"id": "production-runtime", "status": "not-implemented", "description": "No production message runtime or transport is included."},
-    {"id": "authentication-authorization", "status": "not-implemented", "description": "Security context is referential only; receivers enforce identity and policy independently."}
+    {
+      "id": "aix.message-envelope",
+      "name": "AIX semantic message envelope",
+      "status": "scaffolded",
+      "description": "A Draft 2020-12 JSON Schema defines the experimental AIX message envelope for intent, tasks, responses, capabilities, context, status, errors, security references, and provenance.",
+      "evidence": [
+        "schemas/aix-message.schema.json",
+        "tools/validate_message.py",
+        "tests/test_message.py"
+      ],
+      "limitations": [
+        "The envelope is an extension layer and does not replace MCP, A2A, HTTP, OpenAPI, or JSON-RPC."
+      ]
+    },
+    {
+      "id": "aix.task-lifecycle",
+      "name": "Task lifecycle vocabulary",
+      "status": "scaffolded",
+      "description": "The specification defines a constrained task lifecycle and message semantics with positive and negative fixtures.",
+      "evidence": [
+        "docs/SPECIFICATION.md",
+        "examples/task-request.json",
+        "examples/invalid-missing-security.json",
+        "tests/test_message.py"
+      ],
+      "limitations": [
+        "No distributed task scheduler, persistence layer, or runtime state machine is implemented."
+      ]
+    },
+    {
+      "id": "aix.protocol-mapping",
+      "name": "MCP and A2A mapping profiles",
+      "status": "planned",
+      "description": "Define concrete interoperable mappings between AIX messages and established agent protocols.",
+      "evidence": [],
+      "limitations": [
+        "Mapping guidance is conceptual; executable MCP and A2A adapters are not implemented."
+      ]
+    },
+    {
+      "id": "aix.runtime-sdk",
+      "name": "Production runtime and SDK",
+      "status": "planned",
+      "description": "Provide maintained language SDKs and production runtime integration for AIX messages.",
+      "evidence": [],
+      "limitations": [
+        "No production runtime, SDK, transport, or certification is included."
+      ]
+    }
+  ],
+  "explicit_non_capabilities": [
+    "Production agent runtime",
+    "Transport gateway or protocol adapter",
+    "Authentication or authorization enforcement",
+    "Cryptographic signing or verification",
+    "MCP/A2A conformance certification",
+    "Private model reasoning or chain-of-thought transport"
   ]
 }
