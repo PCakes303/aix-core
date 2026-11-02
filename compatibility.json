@@ -1,0 +1,11 @@
+{
+  "compatibility_version": "1.0.0",
+  "component": "aix-core",
+  "status": "experimental",
+  "current_version": "0.1.0",
+  "schema": "schemas/aix-message.schema.json",
+  "schema_dialect": "https://json-schema.org/draft/2020-12/schema",
+  "version_policy": "0.x versions may change incompatibly; each breaking change requires a documented ADR and migration note.",
+  "extension_policy": "Extensions must use reverse-DNS or URI namespaces. Core fields remain explicitly defined; unknown top-level fields are rejected.",
+  "mapping_policy": "Protocol mappings must document semantic loss, defaults, unsupported fields, and security responsibility. No mapping may silently weaken authorization or provenance semantics."
+}
