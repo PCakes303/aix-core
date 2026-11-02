@@ -35,6 +35,8 @@ python -m unittest discover -s tests -v
 python tools/starter_build.py
 ```
 
+The CLI parser caps each envelope at 1 MiB and JSON nesting at 32 levels. The schema bounds message arrays, references, identifiers, extension maps, and nested metadata. These are structural checks only; they do not authenticate or authorize messages.
+
 ## Security boundary
 
 Schema validity does not authenticate senders, authorize requests, validate referenced resources, prevent replay, or guarantee message delivery. Receivers must independently authenticate the sender, verify trust domain and message integrity, enforce replay/idempotency controls, evaluate authorization, and check access to references.
