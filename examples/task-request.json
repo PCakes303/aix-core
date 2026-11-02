@@ -1,0 +1,21 @@
+{
+  "aix_version": "0.1.0",
+  "message_id": "msg-example-0001",
+  "created_at": "2026-11-01T20:00:00Z",
+  "sender": {"principal_id": "agent://coordinator", "trust_domain": "example.org"},
+  "recipient": {"principal_id": "agent://worker", "trust_domain": "example.org"},
+  "message_type": "task.request",
+  "task": {
+    "task_id": "task-example-0001",
+    "intent": "document.review",
+    "objective": "Review a synthetic public document reference for format and provenance completeness.",
+    "state": "proposed",
+    "idempotency_key": "task-example-0001-attempt-1",
+    "input_refs": [{"uri": "https://example.org/sample", "media_type": "text/html"}]
+  },
+  "capability_requirements": ["document.provenance.review"],
+  "context_refs": [],
+  "evidence_refs": [],
+  "security": {"authentication_context": "spiffe://example.org/agent/coordinator", "requested_scopes": ["document:read"], "policy_ref": "policy://example.org/document-review"},
+  "provenance": {"trace_id": "trace-example-0001", "source_protocol": "aix-experimental", "source_version": "0.1.0"}
+}
